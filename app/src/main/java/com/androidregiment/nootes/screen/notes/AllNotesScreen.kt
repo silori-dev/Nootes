@@ -1,4 +1,4 @@
-package com.androidregiment.nootes.screen
+package com.androidregiment.nootes.screen.notes
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
