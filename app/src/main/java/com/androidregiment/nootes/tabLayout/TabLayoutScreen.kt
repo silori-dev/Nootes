@@ -5,7 +5,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.androidregiment.nootes.screen.AllNotesScreen
+import com.androidregiment.nootes.screen.notes.AllNotesScreen
 import com.androidregiment.nootes.screen.AllTasksScreen
 
 

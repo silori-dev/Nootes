@@ -2,10 +2,13 @@ package com.androidregiment.nootes.tabLayout
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.androidregiment.nootes.component.AddFloatingActionButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
@@ -28,7 +31,6 @@ fun TabLayout(
     )
 }
 
-
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun TabLayoutContent(
@@ -37,16 +39,23 @@ fun TabLayoutContent(
     activeScreenPosition: Int,
     pagerState: PagerState,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize()
-    ) {
-        TabsRow(
-            activeScreenPosition = activeScreenPosition,
-            list = list,
-        )
-        TabsScreen(
-            list = list,
-            pagerState = pagerState,
-        )
+    Scaffold(
+        floatingActionButton = { AddFloatingActionButton(onClick = {}) }
+    ) { paddingValues ->
+
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            TabsRow(
+                activeScreenPosition = activeScreenPosition,
+                list = list,
+            )
+            TabsScreen(
+                list = list,
+                pagerState = pagerState,
+            )
+        }
     }
 }
