@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.androidregiment.nootes.screen.MainScreen
 import com.androidregiment.nootes.ui.theme.NootesTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,12 +22,11 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             NootesTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting()
+                    MainScreen()
                 }
             }
         }
