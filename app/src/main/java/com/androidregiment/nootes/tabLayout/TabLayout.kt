@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.androidregiment.nootes.component.AddFloatingActionButton
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
@@ -16,8 +17,10 @@ import com.google.accompanist.pager.rememberPagerState
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun TabLayout(
-    list: List<TabLayoutScreen>,
+    navController: NavController,
+//    list: List<TabLayoutScreen>,
 ) {
+    val list = listOf(TabLayoutScreen.AllNotes, TabLayoutScreen.AllTasks)
 
     val pagerState = rememberPagerState()
 
@@ -27,7 +30,8 @@ fun TabLayout(
     TabLayoutContent(
         activeScreenPosition = activeScreenPosition,
         list = list,
-        pagerState = pagerState
+        pagerState = pagerState,
+        navController = navController,
     )
 }
 
@@ -38,9 +42,16 @@ fun TabLayoutContent(
     list: List<TabLayoutScreen>,
     activeScreenPosition: Int,
     pagerState: PagerState,
+    navController: NavController
 ) {
     Scaffold(
-        floatingActionButton = { AddFloatingActionButton(onClick = {}) }
+        floatingActionButton = {
+            AddFloatingActionButton(onClick = {
+                if (pagerState.currentPage == 0) {
+                    navController.navigate("add_notes")
+                }
+            })
+        }
     ) { paddingValues ->
 
         Column(

@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.androidregiment.nootes.screen.MainScreen
+import com.androidregiment.nootes.screen.main.MainScreen
 import com.androidregiment.nootes.ui.theme.NootesTheme
 
 class MainActivity : ComponentActivity() {

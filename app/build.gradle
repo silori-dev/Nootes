@@ -67,4 +67,8 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
 
     // Icons
-    implementation "androidx.compose.material:material-icons-extended:$compose_ui_version"}
+    implementation "androidx.compose.material:material-icons-extended:$compose_ui_version"
+
+    //Navigation
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+}
