@@ -1,16 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
     namespace 'com.androidregiment.nootes'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.androidregiment.nootes"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -71,4 +73,9 @@ dependencies {
 
     //Navigation
     implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 }
