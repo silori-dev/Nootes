@@ -1,4 +1,4 @@
-package com.androidregiment.nootes.screen.addNotes
+package com.androidregiment.nootes.screen.notes.addNote.ui.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 
 @Composable
-fun AddNotes(
+fun AddNoteScreen(
     navController: NavController,
 ) {
     IconButton(onClick = {

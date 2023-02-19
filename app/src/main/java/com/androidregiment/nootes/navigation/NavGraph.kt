@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.androidregiment.nootes.navigation.screen.NavigationScreen
-import com.androidregiment.nootes.screen.addNotes.AddNotes
+import com.androidregiment.nootes.screen.notes.addNote.ui.screen.AddNoteScreen
 import com.androidregiment.nootes.tabLayout.TabLayout
 
 @Composable
@@ -23,7 +23,7 @@ fun SetupNavGraph(
             TabLayout(navController = navController )
         }
         composable(route = NavigationScreen.AddNoteScreen.route) {
-            AddNotes(navController = navController)
+            AddNoteScreen(navController = navController)
         }
     }
 }
