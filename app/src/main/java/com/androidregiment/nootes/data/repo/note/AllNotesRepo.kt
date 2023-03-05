@@ -1,4 +1,4 @@
-package com.androidregiment.nootes.data.repo
+package com.androidregiment.nootes.data.repo.note
 
 import com.androidregiment.nootes.data.entity.Note
 import kotlinx.coroutines.flow.Flow

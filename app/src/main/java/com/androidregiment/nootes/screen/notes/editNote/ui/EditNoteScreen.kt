@@ -1,4 +1,4 @@
-package com.androidregiment.nootes.screen.notes.addNote.ui.screen
+package com.androidregiment.nootes.screen.notes.editNote.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -16,45 +16,43 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.androidregiment.nootes.screen.component.NooteTextField
-import com.androidregiment.nootes.screen.notes.addNote.viewmodel.AddNoteViewModel
+import com.androidregiment.nootes.screen.notes.editNote.viewModel.EditNoteViewModel
 
 @Composable
-fun AddNoteScreen(
+fun EditNoteScreen(
     navController: NavController,
-    viewModel: AddNoteViewModel = viewModel()
+    viewModel: EditNoteViewModel = viewModel()
 ) {
 
     val noteState by viewModel.noteFlow.collectAsState()
-    AddNoteContent(
 
+    EditNoteContent(
         title = { noteState.title },
         description = { noteState.description },
-        onTitleChange = { viewModel.onTitleChange(it) },
-        onDescriptionChange = { viewModel.onDescriptionChange(it) },
-        onSave = { viewModel.onSaveNote() },
-        navController = navController,
+        onTitleChange = viewModel::onTitleChange,
+        onDescriptionChange = viewModel::onDescriptionChange,
+        onUpdateNote = viewModel::updateNote,
+        navController = navController
     )
 }
 
 @Composable
-fun AddNoteContent(
-
+fun EditNoteContent(
     title: () -> String,
     description: () -> String,
     onTitleChange: (msg: String) -> Unit,
     onDescriptionChange: (msg: String) -> Unit,
-    onSave: () -> Unit,
+    onUpdateNote: () -> Unit,
     navController: NavController
-
 ) {
 
-
     Column(modifier = Modifier.fillMaxSize()) {
+
         Box(modifier = Modifier.fillMaxWidth()) {
 
             IconButton(
                 onClick = {
-                    onSave()
+                    onUpdateNote()
                     navController.navigate("all_notes") {
                         popUpTo(navController.graph.findStartDestination().id)
                         launchSingleTop = true
@@ -71,11 +69,7 @@ fun AddNoteContent(
 
             IconButton(
                 onClick = {
-                    onSave()
-                    navController.navigate("all_notes") {
-                        popUpTo(navController.graph.findStartDestination().id)
-                        launchSingleTop = true
-                    }
+                    onUpdateNote()
                 },
                 modifier = Modifier.align(Alignment.CenterEnd)
             ) {
@@ -87,18 +81,11 @@ fun AddNoteContent(
             }
         }
 
-        NooteTextField(
-            text = title,
-            label = "Title",
-            onTextChanged = onTitleChange,
-            modifier = Modifier.fillMaxWidth()
-        )
+        NooteTextField(text = title, label = "Title", onTextChanged = onTitleChange, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.height(16.dp))
         NooteTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            text = description,
+            modifier = Modifier.fillMaxWidth().weight(1f),
+            text = { description() },
             label = "Description",
             onTextChanged = onDescriptionChange
         )

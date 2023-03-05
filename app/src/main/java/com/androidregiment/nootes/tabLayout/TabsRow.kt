@@ -46,7 +46,6 @@ fun Tab(
     currentPage: Int,
     screen: TabLayoutScreen,
     ) {
-
     val isActive by derivedStateOf {
         currentPage == activeScreenPosition
     }

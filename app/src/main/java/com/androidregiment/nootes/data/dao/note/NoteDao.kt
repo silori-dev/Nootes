@@ -1,4 +1,4 @@
-package com.androidregiment.nootes.data.dao
+package com.androidregiment.nootes.data.dao.note
 
 import androidx.room.*
 import com.androidregiment.nootes.data.entity.Note
@@ -17,7 +17,7 @@ interface NoteDao {
     suspend fun deleteNote(note : Note)
 
     @Query("Select * FROM notes_table WHERE id = :id")
-    fun getNoteById(id: String) :Flow< Note>
+    fun getNoteById(id: Int) : Flow<Note>
 
     @Query("SELECT * FROM notes_table")
     fun getAllNotes(): Flow<List<Note>>

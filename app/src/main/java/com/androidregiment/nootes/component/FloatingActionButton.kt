@@ -1,17 +1,33 @@
 package com.androidregiment.nootes.component
 
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AddFloatingActionButton(
-    onClick: () -> Unit
+    modalBottomSheetState: () -> ModalBottomSheetState,
+    modifier: Modifier,
+    onClick: () -> Unit,
 ) {
+    AnimatedVisibility(
+        visible =
+        !modalBottomSheetState().isVisible,
+        enter = fadeIn(),
+        exit = fadeOut(),
 
-    FloatingActionButton(onClick = { onClick() }) {
-        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+        ) {
+        FloatingActionButton(
+            modifier = modifier,
+            onClick = { onClick() }, elevation = FloatingActionButtonDefaults.elevation()
+        ) {
+            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
+        }
     }
 }

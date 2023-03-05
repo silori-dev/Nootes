@@ -1,4 +1,4 @@
-package com.androidregiment.nootes.data.repo
+package com.androidregiment.nootes.data.repo.note
 
 import com.androidregiment.nootes.data.entity.Note
 import kotlinx.coroutines.flow.Flow
@@ -13,5 +13,5 @@ interface NoteRepo {
 
     suspend fun deleteNote(note: Note)
 
-    fun getNoteById(id : String) : Flow<Note>
+    fun getNoteById(id : Int) : Flow<Note?>
 }

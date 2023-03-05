@@ -4,13 +4,19 @@ import  android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.androidregiment.nootes.data.dao.NoteDao
+import androidx.room.TypeConverters
+import com.androidregiment.nootes.data.dao.note.NoteDao
+import com.androidregiment.nootes.data.dao.task.TaskDao
 import com.androidregiment.nootes.data.entity.Note
+import com.androidregiment.nootes.data.entity.Task
+import com.androidregiment.nootes.data.utils.PriorityConverter
 
-@Database(entities = [Note::class], version = 1, exportSchema = false)
+@Database(entities = [Note::class, Task::class], version = 2, exportSchema = false)
+@TypeConverters(PriorityConverter::class)
 abstract class NooteDatabase : RoomDatabase() {
 
     abstract fun notesDao(): NoteDao
+    abstract fun taskDao(): TaskDao
 
     companion object {
         @Volatile

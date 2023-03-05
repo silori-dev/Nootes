@@ -11,7 +11,12 @@ sealed class NavigationScreen(
 
     object AddNoteScreen : NavigationScreen(
         route = "add_notes",
-        title = "Add Notes"
+        title = "Add Note"
+    )
+
+    object EditNoteScreen : NavigationScreen(
+        route = "edit_note",
+        title = "Edit Note"
     )
 
 }
