@@ -18,7 +18,7 @@ object AppModule {
     @Provides
     fun provideDatabase(@ApplicationContext appContext: Context): NootesDatabase =
         Room
-            .databaseBuilder(appContext, NootesDatabase::class.java, "noote_database")
+            .databaseBuilder(appContext, NootesDatabase::class.java, NootesDatabase.DATABASE_NAME)
             .build()
 
 }
