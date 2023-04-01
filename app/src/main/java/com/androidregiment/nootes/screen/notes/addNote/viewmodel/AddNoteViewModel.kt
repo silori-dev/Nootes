@@ -3,7 +3,7 @@ package com.androidregiment.nootes.screen.notes.addNote.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.androidregiment.nootes.data.database.NooteDatabase
+import com.androidregiment.nootes.data.database.NootesDatabase
 import com.androidregiment.nootes.data.entity.Note
 import com.androidregiment.nootes.screen.notes.addNote.data.AddNoteRepoImpl
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ class AddNoteViewModel(application: Application) : AndroidViewModel(application)
     val noteFlow: StateFlow<Note> = _noteFlow
 
     init {
-        val dao = NooteDatabase.getDatabase(application).notesDao()
+        val dao = NootesDatabase.getDatabase(application).notesDao()
         repo = AddNoteRepoImpl(dao)
     }
 

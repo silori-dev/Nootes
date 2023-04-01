@@ -3,8 +3,7 @@ package com.androidregiment.nootes.screen.tasks.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.androidregiment.nootes.data.database.NooteDatabase
-import com.androidregiment.nootes.data.entity.Note
+import com.androidregiment.nootes.data.database.NootesDatabase
 import com.androidregiment.nootes.data.entity.Task
 import com.androidregiment.nootes.data.utils.Priority
 import com.androidregiment.nootes.screen.tasks.data.TaskRepoImpl
@@ -20,7 +19,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
 
     init {
-        val dao = NooteDatabase.getDatabase(application).taskDao()
+        val dao = NootesDatabase.getDatabase(application).taskDao()
         repo = TaskRepoImpl(dao = dao)
         allTask = repo.getAllTasks()
     }

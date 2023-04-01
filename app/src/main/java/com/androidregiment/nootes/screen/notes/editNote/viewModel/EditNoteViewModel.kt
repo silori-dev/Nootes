@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.androidregiment.nootes.data.database.NooteDatabase
+import com.androidregiment.nootes.data.database.NootesDatabase
 import com.androidregiment.nootes.data.entity.Note
 import com.androidregiment.nootes.screen.notes.editNote.data.EditNoteRepoImpl
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +26,7 @@ class EditNoteViewModel(
     val noteFlow: StateFlow<Note> = _noteFlow
 
     init {
-        val dao = NooteDatabase.getDatabase(application).notesDao()
+        val dao = NootesDatabase.getDatabase(application).notesDao()
         repo = EditNoteRepoImpl(dao)
 
         if (noteId != null) {
