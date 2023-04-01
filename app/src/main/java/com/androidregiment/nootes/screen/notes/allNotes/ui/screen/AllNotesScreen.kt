@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -25,7 +26,7 @@ import com.androidregiment.nootes.screen.notes.allNotes.viewModel.AllNotesViewMo
 
 @Composable
 fun AllNotesScreen(
-    viewModel: AllNotesViewModel = viewModel(),
+    viewModel: AllNotesViewModel = hiltViewModel(),
     navController: NavController,
 
     ) {

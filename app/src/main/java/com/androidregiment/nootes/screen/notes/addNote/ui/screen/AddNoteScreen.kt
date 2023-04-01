@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.androidregiment.nootes.screen.component.NooteTextField
@@ -21,7 +21,7 @@ import com.androidregiment.nootes.screen.notes.addNote.viewmodel.AddNoteViewMode
 @Composable
 fun AddNoteScreen(
     navController: NavController,
-    viewModel: AddNoteViewModel = viewModel()
+    viewModel: AddNoteViewModel = hiltViewModel()
 ) {
 
     val noteState by viewModel.noteFlow.collectAsState()

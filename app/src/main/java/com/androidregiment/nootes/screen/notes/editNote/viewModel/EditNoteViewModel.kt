@@ -1,22 +1,21 @@
 package com.androidregiment.nootes.screen.notes.editNote.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.androidregiment.nootes.data.database.NootesDatabase
 import com.androidregiment.nootes.data.entity.Note
-import com.androidregiment.nootes.screen.notes.editNote.data.EditNoteRepoImpl
+import com.androidregiment.nootes.data.repo.note.NoteRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditNoteViewModel(
-    application: Application,
-    savedStateHandle: SavedStateHandle
-) : AndroidViewModel(application) {
-
-    private val repo: EditNoteRepoImpl
+@HiltViewModel
+class EditNoteViewModel @Inject constructor(
+    private val repo: NoteRepo,
+    savedStateHandle: SavedStateHandle,
+) : ViewModel() {
 
     private val noteId = savedStateHandle.get<Int>("noteId")
 
@@ -26,9 +25,6 @@ class EditNoteViewModel(
     val noteFlow: StateFlow<Note> = _noteFlow
 
     init {
-        val dao = NootesDatabase.getDatabase(application).notesDao()
-        repo = EditNoteRepoImpl(dao)
-
         if (noteId != null) {
             getNote(noteId)
         }
@@ -36,7 +32,6 @@ class EditNoteViewModel(
 
     private fun getNote(id: Int) {
         viewModelScope.launch {
-
             repo.getNoteById(id).collect { note ->
                 _noteFlow.value = note
             }
@@ -49,14 +44,11 @@ class EditNoteViewModel(
 
     fun onDescriptionChange(string: String) {
         _noteFlow.value = _noteFlow.value.copy(description = string)
-
     }
 
     fun updateNote() {
         viewModelScope.launch {
-            repo.updateNote(
-                _noteFlow.value
-            )
+            repo.updateNote(_noteFlow.value)
         }
     }
 }

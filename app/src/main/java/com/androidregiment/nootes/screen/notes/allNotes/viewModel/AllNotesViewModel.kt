@@ -1,30 +1,24 @@
 package com.androidregiment.nootes.screen.notes.allNotes.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.androidregiment.nootes.data.database.NootesDatabase
 import com.androidregiment.nootes.data.entity.Note
-import com.androidregiment.nootes.screen.notes.allNotes.data.AllNotesRepoImpl
+import com.androidregiment.nootes.data.repo.note.NoteRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AllNotesViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class AllNotesViewModel @Inject constructor(
+    private val noteRepository: NoteRepo,
+) : ViewModel() {
 
-    val allNotes: Flow<List<Note>>
-
-    private val repo: AllNotesRepoImpl
-
-    init {
-        val dao = NootesDatabase.getDatabase(application).notesDao()
-        repo = AllNotesRepoImpl(dao)
-
-        allNotes = repo.getAllNotes()
-    }
+    val allNotes: Flow<List<Note>> = noteRepository.getAllNotes()
 
     fun deleteNote(note: Note) {
         viewModelScope.launch {
-            repo.deleteNote(note)
+            noteRepository.deleteNote(note)
         }
     }
 }

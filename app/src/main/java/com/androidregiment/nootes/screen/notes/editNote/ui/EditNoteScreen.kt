@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.androidregiment.nootes.screen.component.NooteTextField
@@ -21,7 +21,7 @@ import com.androidregiment.nootes.screen.notes.editNote.viewModel.EditNoteViewMo
 @Composable
 fun EditNoteScreen(
     navController: NavController,
-    viewModel: EditNoteViewModel = viewModel()
+    viewModel: EditNoteViewModel = hiltViewModel(),
 ) {
 
     val noteState by viewModel.noteFlow.collectAsState()
@@ -32,7 +32,7 @@ fun EditNoteScreen(
         onTitleChange = viewModel::onTitleChange,
         onDescriptionChange = viewModel::onDescriptionChange,
         onUpdateNote = viewModel::updateNote,
-        navController = navController
+        navController = navController,
     )
 }
 
@@ -43,7 +43,7 @@ fun EditNoteContent(
     onTitleChange: (msg: String) -> Unit,
     onDescriptionChange: (msg: String) -> Unit,
     onUpdateNote: () -> Unit,
-    navController: NavController
+    navController: NavController,
 ) {
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -58,12 +58,12 @@ fun EditNoteContent(
                         launchSingleTop = true
                     }
                 },
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier.align(Alignment.CenterStart),
             ) {
                 Icon(
                     imageVector = Icons.Default.NavigateBefore,
                     contentDescription = null,
-                    modifier = Modifier
+                    modifier = Modifier,
                 )
             }
 
@@ -71,23 +71,30 @@ fun EditNoteContent(
                 onClick = {
                     onUpdateNote()
                 },
-                modifier = Modifier.align(Alignment.CenterEnd)
+                modifier = Modifier.align(Alignment.CenterEnd),
             ) {
                 Icon(
                     imageVector = Icons.Default.Save,
                     contentDescription = null,
-                    modifier = Modifier
+                    modifier = Modifier,
                 )
             }
         }
 
-        NooteTextField(text = title, label = "Title", onTextChanged = onTitleChange, modifier = Modifier.fillMaxWidth())
+        NooteTextField(
+            text = title,
+            label = "Title",
+            onTextChanged = onTitleChange,
+            modifier = Modifier.fillMaxWidth(),
+        )
         Spacer(modifier = Modifier.height(16.dp))
         NooteTextField(
-            modifier = Modifier.fillMaxWidth().weight(1f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
             text = { description() },
             label = "Description",
-            onTextChanged = onDescriptionChange
+            onTextChanged = onDescriptionChange,
         )
     }
 }

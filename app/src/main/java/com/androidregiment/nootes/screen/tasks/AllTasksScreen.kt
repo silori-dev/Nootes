@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.androidregiment.nootes.data.entity.Task
 import com.androidregiment.nootes.data.utils.Priority
 import com.androidregiment.nootes.screen.tasks.ui.AddTask
@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun AllTasksScreen(
-    viewModel: TaskViewModel = viewModel(),
+    viewModel: TaskViewModel = hiltViewModel(),
     modalBottomSheetState: ModalBottomSheetState,
 ) {
     val kc = LocalSoftwareKeyboardController.current

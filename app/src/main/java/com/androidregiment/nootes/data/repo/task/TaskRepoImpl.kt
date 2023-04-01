@@ -1,11 +1,12 @@
-package com.androidregiment.nootes.screen.tasks.data
+package com.androidregiment.nootes.data.repo.task
 
 import com.androidregiment.nootes.data.dao.task.TaskDao
 import com.androidregiment.nootes.data.entity.Task
 import com.androidregiment.nootes.data.repo.task.TaskRepo
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class TaskRepoImpl(val dao: TaskDao) : TaskRepo {
+class TaskRepoImpl @Inject constructor(private val dao: TaskDao) : TaskRepo {
 
     override fun getAllTasks(): Flow<List<Task>> = dao.getAllTask()
 
@@ -15,5 +16,6 @@ class TaskRepoImpl(val dao: TaskDao) : TaskRepo {
 
     override fun getTaskById(id: Int): Flow<Task?> = dao.getTaskById(id = id)
 
-    override suspend fun updateTaskStatus(id: Int, isComplete: Boolean) = dao.updateTaskStatus(id = id, isComplete = isComplete)
+    override suspend fun updateTaskStatus(id: Int, isComplete: Boolean) =
+        dao.updateTaskStatus(id = id, isComplete = isComplete)
 }

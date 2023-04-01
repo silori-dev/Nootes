@@ -17,8 +17,8 @@ import com.androidregiment.nootes.data.utils.PriorityConverter
 @TypeConverters(PriorityConverter::class)
 abstract class NootesDatabase : RoomDatabase() {
 
-    abstract fun notesDao(): NoteDao
-    abstract fun taskDao(): TaskDao
+    abstract val noteDao: NoteDao
+    abstract val taskDao: TaskDao
 
     companion object {
         const val DATABASE_VERSION = 3

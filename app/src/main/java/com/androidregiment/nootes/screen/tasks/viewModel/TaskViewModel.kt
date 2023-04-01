@@ -1,31 +1,28 @@
 package com.androidregiment.nootes.screen.tasks.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.androidregiment.nootes.data.database.NootesDatabase
 import com.androidregiment.nootes.data.entity.Task
+import com.androidregiment.nootes.data.repo.task.TaskRepo
 import com.androidregiment.nootes.data.utils.Priority
-import com.androidregiment.nootes.screen.tasks.data.TaskRepoImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TaskViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class TaskViewModel @Inject constructor(
+    private val taskRepository: TaskRepo,
+) : ViewModel() {
 
-    val repo: TaskRepoImpl
-    val allTask: Flow<List<Task>>
+    val allTask: Flow<List<Task>> = taskRepository.getAllTasks()
 
-
-    init {
-        val dao = NootesDatabase.getDatabase(application).taskDao()
-        repo = TaskRepoImpl(dao = dao)
-        allTask = repo.getAllTasks()
-    }
 
     private val _task =
-        MutableStateFlow<Task>(Task(title = "", isComplete = false, priority = Priority.LOW))
+        MutableStateFlow(Task(title = "", isComplete = false, priority = Priority.LOW))
     val task: StateFlow<Task> = _task
 
     fun changeTitle(title: String) {
@@ -38,20 +35,20 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun changeTaskStatus(isComplete: Boolean, id: Int) {
         viewModelScope.launch {
-            repo.updateTaskStatus(id = id, isComplete = isComplete)
+            taskRepository.updateTaskStatus(id = id, isComplete = isComplete)
         }
     }
 
     fun saveTask() {
         viewModelScope.launch {
-            repo.saveTask(_task.value)
+            taskRepository.saveTask(_task.value)
         }
         resetTaskValue()
     }
 
     fun deleteTask(task: Task) {
         viewModelScope.launch {
-            repo.deleteTask(task)
+            taskRepository.deleteTask(task)
         }
     }
 
