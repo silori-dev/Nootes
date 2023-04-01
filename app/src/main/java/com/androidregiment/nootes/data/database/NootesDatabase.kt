@@ -2,11 +2,11 @@ package com.androidregiment.nootes.data.database
 
 import  android.content.Context
 import androidx.room.*
-import com.androidregiment.nootes.data.dao.note.NoteDao
-import com.androidregiment.nootes.data.dao.task.TaskDao
+import com.androidregiment.nootes.data.dao.NoteDao
+import com.androidregiment.nootes.data.dao.TaskDao
 import com.androidregiment.nootes.data.entity.Note
 import com.androidregiment.nootes.data.entity.Task
-import com.androidregiment.nootes.data.utils.PriorityConverter
+import com.androidregiment.nootes.data.converter.PriorityConverter
 
 @Database(entities = [Note::class, Task::class],
     version = NootesDatabase.DATABASE_VERSION,

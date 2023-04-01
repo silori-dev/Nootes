@@ -22,9 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.androidregiment.nootes.data.entity.Task
-import com.androidregiment.nootes.data.utils.Priority
 import com.androidregiment.nootes.screen.tasks.ui.AddTask
-import com.androidregiment.nootes.screen.tasks.viewModel.TaskViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -64,7 +62,7 @@ fun AllTasksContent(
     taskState: () -> StateFlow<Task>,
     onTextChange: (txt: String) -> Unit,
     onDoneClick: () -> Unit,
-    onPriorityChange: (priority: Priority) -> Unit,
+    onPriorityChange: (priority: Task.Priority) -> Unit,
     onCheckedClick: (isComplete: Boolean, id: Int) -> Unit,
     onDeleteTask: (task: Task) -> Unit,
     modalBottomSheetState: ModalBottomSheetState,
