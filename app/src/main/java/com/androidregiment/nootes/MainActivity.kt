@@ -15,7 +15,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.androidregiment.nootes.screen.main.MainScreen
 import com.androidregiment.nootes.ui.theme.NootesTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +26,7 @@ class MainActivity : ComponentActivity() {
             NootesTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colors.background,
                 ) {
                     MainScreen()
                 }

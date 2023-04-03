@@ -1,33 +1,26 @@
 package com.androidregiment.nootes.data.database
 
-import  android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.androidregiment.nootes.data.dao.note.NoteDao
-import com.androidregiment.nootes.data.dao.task.TaskDao
+import androidx.room.*
+import com.androidregiment.nootes.data.converter.PriorityConverter
+import com.androidregiment.nootes.data.dao.NoteDao
+import com.androidregiment.nootes.data.dao.TaskDao
 import com.androidregiment.nootes.data.entity.Note
 import com.androidregiment.nootes.data.entity.Task
-import com.androidregiment.nootes.data.utils.PriorityConverter
 
-@Database(entities = [Note::class, Task::class], version = 2, exportSchema = false)
+@Database(entities = [Note::class, Task::class],
+    version = NootesDatabase.DATABASE_VERSION,
+    autoMigrations = [
+        AutoMigration(from = 2, to = 3),
+    ],
+    exportSchema = true)
 @TypeConverters(PriorityConverter::class)
-abstract class NooteDatabase : RoomDatabase() {
+abstract class NootesDatabase : RoomDatabase() {
 
-    abstract fun notesDao(): NoteDao
-    abstract fun taskDao(): TaskDao
+    abstract val noteDao: NoteDao
+    abstract val taskDao: TaskDao
 
     companion object {
-        @Volatile
-        private var Instance: NooteDatabase? = null
-
-        fun getDatabase(context: Context): NooteDatabase {
-            return Instance ?: synchronized(this) {
-                Room.databaseBuilder(context, NooteDatabase::class.java, "noote_database")
-                    .build()
-                    .also { Instance = it }
-            }
-        }
+        const val DATABASE_VERSION = 3
+         const val DATABASE_NAME = "noote_database"
     }
 }
